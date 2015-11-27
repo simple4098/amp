@@ -10,7 +10,7 @@ import java.util.List;
  * @author wangxiaohong
  */
 public interface ITaskEntityService {
-    public List<TaskInfoDto> findList(Pagination<TaskInfoDto> param);
+    List<TaskInfoDto> findList(Pagination<TaskInfoDto> param);
 
     void create(TaskInfo taskInfo);
 

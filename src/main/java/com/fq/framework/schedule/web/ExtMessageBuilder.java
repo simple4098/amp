@@ -4,31 +4,19 @@ import java.util.List;
 
 /**
  * 消息封装类，用于常用消息体的封装
+ *
  * @author wangxiaohong
  */
 public final class ExtMessageBuilder {
-    private ExtMessage extMessage;
-
-
-    public ExtMessageBuilder() {
-        extMessage = new ExtMessage();
-    }
-
-    public static ExtMessageBuilder newMessageBuilder() {
-        return new ExtMessageBuilder();
-    }
-
-    public ExtMessage createMessage(String message) {
+    public static ExtMessage createMessage(String message) {
+        ExtMessage extMessage = new ExtMessage();
         extMessage.setMsg(message);
         return extMessage;
     }
-    public ExtMessage createResults(List list){
+
+    public static <T> ExtMessage createResults(List<T> list) {
+        ExtMessage extMessage = new ExtMessage();
         extMessage.setResults(list);
         return extMessage;
-    }
-
-    public ExtMessage createResults(List appLogs, int totalCount) {
-        extMessage.setTotalCount(totalCount);
-        return createResults(appLogs);
     }
 }
