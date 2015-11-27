@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.UUID;
+
+import static com.fq.framework.schedule.web.ExtMessageBuilder.createResults;
 
 /**
  * 通用配置  资源
@@ -18,7 +19,7 @@ import java.util.UUID;
  * @author wangxiaohong
  */
 @Controller
-public class ConfigController extends BaseController {
+public class ConfigController {
 
     /**
      * 系统运行时 软件配置
@@ -37,6 +38,6 @@ public class ConfigController extends BaseController {
      */
     @RequestMapping("/environment/jobTypeList")
     public ExtMessage getJobTypeList() {
-        return extMessageBuilder.createResults(FieldUtils.convertToList(JobType.values()));
+        return createResults(FieldUtils.convertToList(JobType.values()));
     }
 }

@@ -2,6 +2,7 @@ package com.fq.framework.schedule.web;
 
 
 import org.springframework.util.StringUtils;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import java.util.Map;
 
@@ -10,7 +11,7 @@ import java.util.Map;
  *
  * @author wangxiaohong
  */
-public class MappingJacksonJsonView extends org.springframework.web.servlet.view.json.MappingJackson2JsonView {
+public class MappingJacksonJsonView extends MappingJackson2JsonView {
     @Override
     @SuppressWarnings("unchecked")
     protected Object filterModel(Map<String, Object> model) {

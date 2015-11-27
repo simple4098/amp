@@ -11,13 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.fq.framework.schedule.web.ExtMessageBuilder.createMessage;
+
 /**
  * 异常处理 统一ajax 处理
+ *
  * @author wangxiaohong
  */
 public class TaskExceptionResolver implements HandlerExceptionResolver {
-    private Logger logger = LogManager.getLogger(TaskExceptionResolver.class);
     public static final String DEFAULT_CONTENT_TYPE = "application/json";
+    private Logger logger = LogManager.getLogger(TaskExceptionResolver.class);
 
     @Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
@@ -27,7 +30,7 @@ public class TaskExceptionResolver implements HandlerExceptionResolver {
         response.setCharacterEncoding("UTF-8");
         if (!response.isCommitted()) {
             try {
-                ExtMessage extMessage = ExtMessageBuilder.newMessageBuilder().createMessage(ex.getMessage());
+                ExtMessage extMessage = createMessage(ex.getMessage());
                 extMessage.setSuccess(false);
                 response.getWriter().print(JSONArray.toJSON(extMessage));
                 response.flushBuffer();

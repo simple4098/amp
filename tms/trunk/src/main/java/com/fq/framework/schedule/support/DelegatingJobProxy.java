@@ -32,7 +32,7 @@ public class DelegatingJobProxy extends QuartzJobBean {
     protected static final Log logger = LogFactory.getLog(DelegatingJobProxy.class);
 
     private static final int MAX_ERROR_COUNT = 10;
-    private static TaskExecuteFailureCounter taskExecuteFailureCounter = new TaskExecuteFailureCounter();
+    private  TaskExecuteFailureCounter taskExecuteFailureCounter = new TaskExecuteFailureCounter();
 
 
     public void setSpringApplicationContext(ApplicationContext springApplicationContext) {
@@ -99,7 +99,7 @@ public class DelegatingJobProxy extends QuartzJobBean {
             taskExecuteFailureCounter.reset(cloneContext.getTaskId());
         } catch (Exception e) {
             logger.error(e);
-            if (reachMaxErrorCount(cloneContext)) {
+            if (maxErrorCountReached(cloneContext)) {
                 logger.info("连续错误");
                 //如果连续错误5次 则 强制暂停
                 ITaskEntityService taskEntityService = springApplicationContext.getBean(ITaskEntityService.class);
@@ -126,7 +126,7 @@ public class DelegatingJobProxy extends QuartzJobBean {
         }
     }
 
-    private boolean reachMaxErrorCount(TaskJobContext meta) {
+    private boolean maxErrorCountReached(TaskJobContext meta) {
         return taskExecuteFailureCounter.getIncrement(meta.getTaskId()) > MAX_ERROR_COUNT;
     }
 

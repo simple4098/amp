@@ -11,14 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 
+import static com.fq.framework.schedule.web.ExtMessageBuilder.createMessage;
+import static com.fq.framework.schedule.web.ExtMessageBuilder.createResults;
+
 /**
  * 任务操作响应
  *
- *  @author wangxiaohong
+ * @author wangxiaohong
  */
 @Controller
 @RequestMapping("/task")
-public class TaskController extends BaseController {
+public class TaskController {
 
 
     @Resource
@@ -30,8 +33,8 @@ public class TaskController extends BaseController {
     @RequestMapping("/list")
     public ExtMessage showTaskList(Integer page, Integer limit) {
         Pagination<TaskInfoDto> pagination = new Pagination<TaskInfoDto>(limit, page);
-        ExtMessage extMessage = extMessageBuilder.createResults(taskService.findList(pagination));
-        extMessage.setTotalCount(10);
+        ExtMessage extMessage = createResults(taskService.findList(pagination));
+        extMessage.setTotalCount(pagination.getTotalCount());
         return extMessage;
     }
 
@@ -44,7 +47,7 @@ public class TaskController extends BaseController {
     public ExtMessage saveEdit(TaskInfo taskInfo) {
         Assert.notNull(taskInfo, "更新失败，未找到ID");
         taskService.update(taskInfo);
-        return extMessageBuilder.createMessage("更新成功");
+        return createMessage("更新成功");
 
     }
 
@@ -56,7 +59,7 @@ public class TaskController extends BaseController {
     @RequestMapping("/saveCreate")
     public ExtMessage saveCreate(TaskInfo taskInfo) {
         taskService.create(taskInfo);
-        return extMessageBuilder.createMessage("创建成功");
+        return createMessage("创建成功");
     }
 
     /**
@@ -67,7 +70,7 @@ public class TaskController extends BaseController {
     @RequestMapping("/startup")
     public ExtMessage startup(String id) {
         taskService.startup(id);
-        return extMessageBuilder.createMessage("启动成功");
+        return createMessage("启动成功");
     }
 
     /**
@@ -78,7 +81,7 @@ public class TaskController extends BaseController {
     @RequestMapping("/pause")
     public ExtMessage pause(String id) {
         taskService.pause(id);
-        return extMessageBuilder.createMessage("暂停成功");
+        return createMessage("暂停成功");
     }
 
     /**
@@ -89,6 +92,6 @@ public class TaskController extends BaseController {
     @RequestMapping("/delete")
     public ExtMessage delete(String id) {
         taskService.delete(id);
-        return extMessageBuilder.createMessage("删除成功");
+        return createMessage("删除成功");
     }
 }

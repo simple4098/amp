@@ -4,7 +4,8 @@ import java.util.List;
 
 /**
  * 对象Ext Js 消息体
- * @author  wangxiaohong
+ *
+ * @author wangxiaohong
  */
 public class ExtMessage {
     private String msg;
@@ -24,7 +25,7 @@ public class ExtMessage {
         return results;
     }
 
-    public void setResults(List results) {
+    public <T> void setResults(List<T> results) {
         this.results = results;
     }
 
