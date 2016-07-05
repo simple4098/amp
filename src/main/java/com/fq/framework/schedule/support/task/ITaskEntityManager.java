@@ -12,13 +12,13 @@ public interface ITaskEntityManager {
      *
      * @throws SchedulerException
      */
-    public void startup() throws SchedulerException;
+    void startup() throws SchedulerException;
 
     //启动某个 任务
-    public void startup(TaskInfo taskInfo);
+    void startup(TaskInfo taskInfo);
 
     //暂停 某个 任务
-    public void pause(TaskInfo taskInfo);
+    void pause(TaskInfo taskInfo);
 
     //删除 某个 任务
     void delete(TaskInfo taskInfo);
